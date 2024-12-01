@@ -2,6 +2,8 @@
 
 👋 Welcome to [Hinorium](https://hinorium.github.io) — my personal website.
 
+![Hinorium GIF](https://hinorium.github.io/assets/thumbs/thumbnail.gif)
+
 ---
 
 ## 🎨 About the Site
