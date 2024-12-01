@@ -30,9 +30,7 @@ Thank you for visiting my site! Feel free to explore and connect with me for any
 
 🔗 **Stay Connected**:
 
-- Follow me on [Twitter](https://twitter.com) for updates.
-- Connect on [LinkedIn](https://linkedin.com) for professional networking.
-- Check out my [GitHub](https://github.com) for more projects.
+- Check out my [GitHub](https://github.com/hinorium) for more projects.
 
 ---
 
