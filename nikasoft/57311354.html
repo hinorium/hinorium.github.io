@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1"/>
+<meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+<title>Школьное расписание МОБУ СОШ№3 (Якутск)</title>
+<meta name="keywords" content="Школьное расписание НИКА-Люкс НИКА-Софт МОБУ СОШ№3 Якутск">
+<link rel="icon" href="nikasoft/static/images/icons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="48x48" href="nikasoft/static/images/icons/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="nikasoft/static/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="nikasoft/static/images/icons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="nikasoft/static/images/icons/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="nikasoft/static/images/icons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="120x120" href="nikasoft/static/images/icons/apple-touch-icon-120x120.png">
+<script type="text/javascript" src="nikasoft/static/public/57311354_20241201140456.js"></script>
+<script type="text/javascript" src="nikasoft/static/js/schedule.js"></script>
+
+<style>
+body{margin:0;padding:0;}
+html, body{height:100%;}
+
+@font-face {
+  font-family: "RomanaScript";
+  src: local('☺'),             /* IE trick */
+        url('nikasoft/static/images/RomanaScript.woff') format('woff'),
+        url('nikasoft/static/images/RomanaScript.ttf') format('truetype'), /* Opera, Safari */
+        url('nikasoft/static/images/RomanaScript.svg') format('svg'); /* iOS */
+}
+@font-face {
+  font-family: "AlexBrush";
+  src: local('☺'),             /* IE trick */
+        url('nikasoft/static/images/AlexBrush.woff') format('woff'),
+        url('nikasoft/static/images/AlexBrush.ttf') format('truetype'), /* Opera, Safari */
+        url('nikasoft/static/images/AlexBrush.svg') format('svg'); /* iOS */
+}
+
+a,p {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+</style>
+
+<script type="text/javascript">
+  document.oncontextmenu = function (){return false};
+  if (NIKA.SCHOOL_NAME) {
+        var s = NIKA.SCHEDULE_STR.toLowerCase();
+        s = s.charAt(0).toUpperCase() + s.slice(1);
+        document.title = s + " " + NIKA.SCHOOL_NAME;
+  }
+  var schedule_check_url = 'https://raspisanie.nikasoft.ru/check/57311354.html';
+  var initial_schedule_id = '57311354_20241201140456.js';
+</script>
+
+</head>
+
+<body onload="Init();">
+		<div id="MainDiv" style="width:100%; height:100%; min-width: 1000px; min-height: 700px; overflow-x: hidden; overflow-y: hidden;"> 
+         <canvas id="MainCanvas" style="border:0px;width:100%; height:100%; min-width: 1000px; min-height: 700px;"> 
+         		  <div align="center">
+         		  	<table cols=2 width="100%" border="0px">
+         		  		<tr>
+         		  			<td width="200px">
+         		  				<td>
+         		  <P style="color: red; font-weight: bold; font-size: 16px">Не удается отобразить расписание
+             	<P>К сожалению ваш браузер не поддерживает корректное отображение страниц HTML5
+             		<div  align="left">
+             			<P>Вы можете открыть&nbsp<a href="m.schedule.html">мобильную версию сайта</a>
+								</table>
+						</div>		
+    </canvas> 		
+    </div>
+<div id="AddElements">
+<p id="copyright" style="position: absolute; color: #3CACC4; font-family: Geneva, sans-serif; font-weight: 600; font-size: 14px; width: 30em;">НИКА-Софт</p>
+<a id="go_mobile" style="position: absolute; color: black; font-weight: bold; font-size: 12px; width: 14em;" href="javascript:void(0);">На мобильную версию &gt;&gt;</a> 
+<a id="go_home" style="visibility: hidden; text-decoration:underline; position: absolute; color: white; font-family: Arial, sans-serif; font-weight: 300; font-size: 18px" href="javascript:void(0);">Школьный сайт</a> 
+</div>
+</html>
