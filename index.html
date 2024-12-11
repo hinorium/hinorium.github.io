@@ -2,97 +2,126 @@
 <html lang="ru" data-theme="system">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hinorium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Hinorium • Развлекательная платформа</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Добавляем Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <script src="js/main.js"></script>
     <header>
         <nav>
             <div class="logo">
-                <span class="logo-text">Hinorium</span>
+                <span class="logo-text">Hinorium<span class="logo-dot">.</span></span>
             </div>
             <div class="nav-content">
                 <ul class="nav-links">
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#trending">Популярное</a></li>
-                    <li><a href="#new">Новое</a></li>
+                    <li><a href="#home" class="active"><i class="fas fa-home"></i>Главная</a></li>
+                    <li><a href="#trending"><i class="fas fa-fire"></i>Популярное</a></li>
+                    <li><a href="#new"><i class="fas fa-clock"></i>Новое</a></li>
                 </ul>
             </div>
-            <button class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Переключить тему">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </nav>
     </header>
 
     <main>
-      <section id="home" class="hero">
-    <div class="video-background">
-        <video autoplay loop muted playsinline id="bgVideo">
-            <source src="/assets/videos/video-2.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
-    
-    <!-- Добавляем переключатель видео -->
-    <div class="video-switcher">
-        <div class="video-preview" data-video="/assets/videos/video-1.mp4">
-            <video muted loop>
-                <source src="/assets/videos/video-1.mp4" type="video/mp4">
-            </video>
-            <div class="preview-overlay">
-                <span class="preview-number">01</span>
+        <section id="home" class="hero">
+            <div class="video-background">
+                <video autoplay loop muted playsinline id="bgVideo">
+                    <source src="/assets/videos/video-2.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
             </div>
-        </div>
-        <div class="video-preview active" data-video="/assets/videos/video-2.mp4">
-            <video muted loop>
-                <source src="/assets/videos/video-2.mp4" type="video/mp4">
-            </video>
-            <div class="preview-overlay">
-                <span class="preview-number">02</span>
+            
+            <div class="video-switcher">
+                <div class="video-preview" data-video="/assets/videos/video-1.mp4">
+                    <video muted loop>
+                        <source src="/assets/videos/video-1.mp4" type="video/mp4">
+                    </video>
+                    <div class="preview-overlay">
+                        <span class="preview-number">01</span>
+                    </div>
+                </div>
+                <div class="video-preview active" data-video="/assets/videos/video-2.mp4">
+                    <video muted loop>
+                        <source src="/assets/videos/video-2.mp4" type="video/mp4">
+                    </video>
+                    <div class="preview-overlay">
+                        <span class="preview-number">02</span>
+                    </div>
+                </div>
+                <div class="video-preview" data-video="/assets/videos/video-3.mp4">
+                    <video muted loop>
+                        <source src="/assets/videos/video-3.mp4" type="video/mp4">
+                    </video>
+                    <div class="preview-overlay">
+                        <span class="preview-number">03</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="video-preview" data-video="/assets/videos/video-3.mp4">
-            <video muted loop>
-                <source src="/assets/videos/video-3.mp4" type="video/mp4">
-            </video>
-            <div class="preview-overlay">
-                <span class="preview-number">03</span>
-            </div>
-        </div>
-    </div>
 
-    <div class="hero-content">
-        <h1>Добро пожаловать на Hinorium</h1>
-        <p>Ваш источник развлекательного контента</p>
-        <div class="search-container">
-            <input type="text" placeholder="Поиск видео...">
-            <button>
-                <i class="fas fa-search"></i>
-                Поиск
-            </button>
-        </div>
-    </div>
-</section>
+            <div class="hero-content">
+                <h1>Добро пожаловать на <span class="gradient-text">Hinorium</span></h1>
+                <p>Откройте для себя мир увлекательного контента</p>
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" placeholder="Найти видео, каналы или плейлисты...">
+                    </div>
+                    <button class="search-button">
+                        <span>Поиск</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="trending-tags">
+                    <span>#популярное</span>
+                    <span>#новинки</span>
+                    <span>#топ</span>
+                </div>
+            </div>
+        </section>
 
         <section id="trending" class="video-section">
-            <h2>Популярное</h2>
+            <div class="section-header">
+                <h2><i class="fas fa-fire"></i> Популярное</h2>
+                <div class="section-controls">
+                    <button class="control-button"><i class="fas fa-th-large"></i></button>
+                    <button class="control-button"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
             <div class="video-grid">
-                <!-- Шаблон карточки видео -->
                 <article class="video-card">
                     <div class="thumbnail">
-                        <img src="placeholder.jpg" alt="Превью видео">
-                        <span class="duration">10:30</span>
+                        <img src="placeholder.jpg" alt="Превью видео" loading="lazy">
+                        <span class="duration"><i class="fas fa-play"></i> 10:30</span>
+                        <div class="thumbnail-overlay">
+                            <button class="play-button">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="video-info">
-                        <h3>Название видео</h3>
+                        <div class="channel-info">
+                            <img src="channel-avatar.jpg" alt="Канал" class="channel-avatar">
+                            <div>
+                                <h3>Название видео</h3>
+                                <span class="channel-name">Название канала</span>
+                            </div>
+                        </div>
                         <div class="meta">
-                            <span class="views">1.2K просмотров</span>
-                            <span class="date">2 дня назад</span>
+                            <span><i class="fas fa-eye"></i> 1.2K просмотров</span>
+                            <span><i class="fas fa-clock"></i> 2 дня назад</span>
                         </div>
                         <div class="tags">
                             <span>#развлечения</span>
@@ -100,7 +129,13 @@
                         </div>
                     </div>
                 </article>
-                <!-- Повторить для других видео -->
+                <!-- Добавьте больше карточек видео -->
+            </div>
+            <div class="load-more">
+                <button class="load-more-button">
+                    <span>Показать больше</span>
+                    <i class="fas fa-spinner"></i>
+                </button>
             </div>
         </section>
     </main>
@@ -109,28 +144,59 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>О проекте</h3>
-                <p>Hinorium - платформа для размещения развлекательного видеоконтента</p>
+                <p>Hinorium - современная платформа для просмотра и размещения развлекательного видеоконтента</p>
+                <div class="footer-stats">
+                    <div class="stat">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Видео</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5K+</span>
+                        <span class="stat-label">Авторов</span>
+                    </div>
+                </div>
             </div>
             <div class="footer-section">
-                <h3>Навигация</h3>
+                <h3>Быстрые ссылки</h3>
                 <ul>
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#trending">Популярное</a></li>
-                    <li><a href="#new">Новое</a></li>
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Главная</a></li>
+                    <li><a href="#trending"><i class="fas fa-chevron-right"></i> Популярное</a></li>
+                    <li><a href="#new"><i class="fas fa-chevron-right"></i> Новое</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h3>Социальные сети</h3>
+                <h3>Присоединяйтесь к нам</h3>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-button github">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="#" class="social-button twitter">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                    <a href="#" class="social-button telegram">
+                        <i class="fab fa-telegram"></i>
+                        <span>Telegram</span>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 Hinorium</p>
+            <p>&copy; 2024 Hinorium. Все права защищены</p>
+            <div class="footer-links">
+                <a href="#">Условия использования</a>
+                <a href="#">Конфиденциальность</a>
+            </div>
         </div>
     </footer>
+
+    <div class="scroll-to-top">
+        <button aria-label="Наверх">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
