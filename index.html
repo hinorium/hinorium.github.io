@@ -1,45 +1,109 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="system">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hinorium Videos</title>
+    <title>Hinorium</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">Hinorium</div>
-            <ul class="nav-links">
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#videos">Видео</a></li>
-                <li><a href="#about">О сайте</a></li>
-            </ul>
+            <div class="logo">
+                <span class="logo-text">Hinorium</span>
+            </div>
+            <div class="nav-content">
+                <ul class="nav-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#trending">Популярное</a></li>
+                    <li><a href="#new">Новое</a></li>
+                </ul>
+                <div class="theme-switcher">
+                    <button id="theme-light" title="Светлая тема">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <button id="theme-dark" title="Темная тема">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="theme-system" title="Системная тема">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                </div>
+            </div>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <h1>Добро пожаловать на Hinorium</h1>
-            <p>Ваш источник развлекательного контента</p>
+            <div class="hero-content">
+                <h1>Откройте мир развлечений</h1>
+                <p>Лучшие видео собраны для вас</p>
+                <div class="search-container">
+                    <input type="text" placeholder="Поиск видео...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div class="hero-backdrop"></div>
         </section>
 
-        <section id="videos" class="video-grid">
-            <!-- Здесь будут карточки с видео -->
-            <div class="video-card">
-                <div class="video-container">
-                    <!-- Вставьте свой видеоплеер или iframe -->
-                </div>
-                <h3>Название видео</h3>
-                <p>Описание видео</p>
+        <section id="trending" class="video-section">
+            <h2>Популярное</h2>
+            <div class="video-grid">
+                <!-- Шаблон карточки видео -->
+                <article class="video-card">
+                    <div class="thumbnail">
+                        <img src="placeholder.jpg" alt="Превью видео">
+                        <span class="duration">10:30</span>
+                    </div>
+                    <div class="video-info">
+                        <h3>Название видео</h3>
+                        <div class="meta">
+                            <span class="views">1.2K просмотров</span>
+                            <span class="date">2 дня назад</span>
+                        </div>
+                        <div class="tags">
+                            <span>#развлечения</span>
+                            <span>#тренды</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Повторить для других видео -->
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Hinorium. Все права защищены.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О проекте</h3>
+                <p>Hinorium - платформа для размещения развлекательного видеоконтента</p>
+            </div>
+            <div class="footer-section">
+                <h3>Навигация</h3>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#trending">Популярное</a></li>
+                    <li><a href="#new">Новое</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Социальные сети</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Hinorium</p>
+        </div>
     </footer>
-
-    <script src="js/main.js"></script>
 </body>
 </html>
