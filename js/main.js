@@ -1,48 +1,77 @@
 // Управление темой
-const themeButtons = {
-    light: document.getElementById('theme-light'),
-    dark: document.getElementById('theme-dark'),
-    system: document.getElementById('theme-system')
-};
+class ThemeManager {
+    constructor() {
+        this.root = document.documentElement;
+        this.themeButtons = {
+            light: document.getElementById('theme-light'),
+            dark: document.getElementById('theme-dark'),
+            system: document.getElementById('theme-system')
+        };
+        
+        this.initTheme();
+        this.setupEventListeners();
+    }
 
-// Определение системной темы
-function getSystemTheme() {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    initTheme() {
+        const savedTheme = localStorage.getItem('theme-preference') || 'system';
+        this.setTheme(savedTheme, true);
+    }
+
+    getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    setTheme(theme, isInitial = false) {
+        // Удаляем все классы тем
+        this.root.classList.remove('theme-light', 'theme-dark');
+        
+        // Убираем активное состояние со всех кнопок
+        Object.values(this.themeButtons).forEach(button => {
+            button?.classList.remove('active');
+        });
+
+        let effectiveTheme = theme;
+        if (theme === 'system') {
+            effectiveTheme = this.getSystemTheme();
+            this.themeButtons.system?.classList.add('active');
+        } else {
+            this.themeButtons[theme]?.classList.add('active');
+        }
+
+        // Установка атрибута data-theme
+        this.root.setAttribute('data-theme', effectiveTheme);
+        // Добавление класса темы
+        this.root.classList.add(`theme-${effectiveTheme}`);
+
+        if (!isInitial) {
+            localStorage.setItem('theme-preference', theme);
+        }
+
+        // Добавим вывод в консоль для отладки
+        console.log('Theme set to:', effectiveTheme);
+        console.log('data-theme attribute:', this.root.getAttribute('data-theme'));
+        console.log('classList:', this.root.classList);
+    }
+
+    setupEventListeners() {
+        // Обработчики для кнопок
+        Object.entries(this.themeButtons).forEach(([theme, button]) => {
+            button?.addEventListener('click', () => this.setTheme(theme));
+        });
+
+        // Слушатель изменения системной темы
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (localStorage.getItem('theme-preference') === 'system') {
+                this.setTheme('system');
+            }
+        });
+    }
 }
 
-// Установка темы
-function setTheme(theme) {
-    const root = document.documentElement;
-    
-    // Удаляем активный класс со всех кнопок
-    Object.values(themeButtons).forEach(button => button.classList.remove('active'));
-    
-    if (theme === 'system') {
-        root.setAttribute('data-theme', getSystemTheme());
-        themeButtons.system.classList.add('active');
-    } else {
-        root.setAttribute('data-theme', theme);
-        themeButtons[theme].classList.add('active');
-    }
-    
-    localStorage.setItem('theme-preference', theme);
-}
-
-// Обработчики для кнопок переключения темы
-Object.entries(themeButtons).forEach(([theme, button]) => {
-    button.addEventListener('click', () => setTheme(theme));
+// Инициализация менеджера темы после загрузки DOM
+document.addEventListener('DOMContentLoaded', () => {
+    const themeManager = new ThemeManager();
 });
-
-// Слушатель изменения системной темы
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    if (localStorage.getItem('theme-preference') === 'system') {
-        setTheme('system');
-    }
-});
-
-// Инициализация темы
-const savedTheme = localStorage.getItem('theme-preference') || 'system';
-setTheme(savedTheme);
 
 // Мобильное меню
 const menuToggle = document.querySelector('.menu-toggle');
