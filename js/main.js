@@ -1,3 +1,47 @@
+// Функция загрузки новых видео
+async function loadNewVideos() {
+    try {
+        const response = await fetch('/api/videos/new');
+        const videos = await response.json();
+        
+        const newVideosContainer = document.getElementById('newVideos');
+        
+        videos.forEach(video => {
+            const videoCard = createVideoCard(video);
+            newVideosContainer.appendChild(videoCard);
+        });
+    } catch (error) {
+        console.error('Ошибка загрузки новых видео:', error);
+    }
+}
+
+// Функция создания карточки видео
+function createVideoCard(video) {
+    return `
+        <article class="video-card">
+            <div class="thumbnail">
+                <img src="${video.thumbnail}" alt="${video.title}">
+                <span class="duration">${video.duration}</span>
+            </div>
+            <div class="video-info">
+                <h3>${video.title}</h3>
+                <div class="meta">
+                    <span class="views">${video.views} просмотров</span>
+                    <span class="date">${video.uploadDate}</span>
+                </div>
+                <div class="tags">
+                    ${video.tags.map(tag => `<span>${tag}</span>`).join('')}
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+// Загружаем новые видео при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    loadNewVideos();
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const mainVideo = document.getElementById('bgVideo');
     const previews = document.querySelectorAll('.video-preview');
