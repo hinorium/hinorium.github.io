@@ -1,46 +1,66 @@
 // Функция загрузки новых видео
 async function loadNewVideos() {
+    const newVideosContainer = document.querySelector('#new .video-grid');
+    if (!newVideosContainer) return;
+
     try {
         const response = await fetch('/api/videos/new');
         const videos = await response.json();
         
-        const newVideosContainer = document.getElementById('newVideos');
-        
-        videos.forEach(video => {
-            const videoCard = createVideoCard(video);
-            newVideosContainer.appendChild(videoCard);
-        });
+        newVideosContainer.innerHTML = videos.map(video => `
+            <article class="video-card">
+                <a href="/watch/${video.id}" class="video-link">
+                    <div class="thumbnail">
+                        <img src="${video.thumbnail}" alt="${video.title}" loading="lazy">
+                        <span class="duration">${video.duration}</span>
+                        <div class="thumbnail-overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <img src="${video.authorAvatar}" alt="${video.author}" class="author-avatar">
+                        <div>
+                            <h3>${video.title}</h3>
+                            <a href="/channel/${video.authorId}" class="author-name">${video.author}</a>
+                            <div class="meta">
+                                <span>${video.views} просмотров</span>
+                                <span>${video.uploadDate}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        ${video.tags.map(tag => `<span>${tag}</span>`).join('')}
+                    </div>
+                </div>
+            </article>
+        `).join('');
     } catch (error) {
-        console.error('Ошибка загрузки новых видео:', error);
+        console.error('Ошибка загрузки видео:', error);
+        newVideosContainer.innerHTML = '<p class="error-message">Не удалось загрузить видео</p>';
     }
 }
 
-// Функция создания карточки видео
-function createVideoCard(video) {
-    return `
-        <article class="video-card">
-            <div class="thumbnail">
-                <img src="${video.thumbnail}" alt="${video.title}">
-                <span class="duration">${video.duration}</span>
-            </div>
-            <div class="video-info">
-                <h3>${video.title}</h3>
-                <div class="meta">
-                    <span class="views">${video.views} просмотров</span>
-                    <span class="date">${video.uploadDate}</span>
-                </div>
-                <div class="tags">
-                    ${video.tags.map(tag => `<span>${tag}</span>`).join('')}
-                </div>
-            </div>
-        </article>
-    `;
+// Загружаем новые видео при прокрутке до секции
+const newSection = document.getElementById('new');
+if (newSection) {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    loadNewVideos();
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.1 }
+    );
+    
+    observer.observe(newSection);
 }
 
-// Загружаем новые видео при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    loadNewVideos();
-});
+// End [Upload Videos] 
 
 document.addEventListener('DOMContentLoaded', function() {
     const mainVideo = document.getElementById('bgVideo');
