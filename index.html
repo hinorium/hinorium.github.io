@@ -6,7 +6,6 @@
     <title>Hinorium • Развлекательная платформа</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Добавляем Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,21 +16,16 @@
             </div>
             <div class="nav-content">
                 <ul class="nav-links">
-                    <li><a href="#home" class="active"><i class="fas fa-home"></i>Главная</a></li>
-                    <li><a href="#trending"><i class="fas fa-fire"></i>Популярное</a></li>
-                    <li><a href="#new"><i class="fas fa-clock"></i>Новое</a></li>
+                    <li><a href="#home" class="active">Главная</a></li>
+                    <li><a href="#trending">Популярное</a></li>
+                    <li><a href="#new">Новое</a></li>
                 </ul>
             </div>
-            <div class="nav-actions">
-                <button class="theme-toggle" aria-label="Переключить тему">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="menu-toggle" aria-label="Меню">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
@@ -75,13 +69,10 @@
                 <h1>Добро пожаловать на <span class="gradient-text">Hinorium</span></h1>
                 <p>Откройте для себя мир увлекательного контента</p>
                 <div class="search-container">
-                    <div class="search-input-wrapper">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" placeholder="Найти видео, каналы или плейлисты...">
-                    </div>
+                    <input type="text" placeholder="Найти видео, каналы или плейлисты...">
                     <button class="search-button">
+                        <i class="fas fa-search"></i>
                         <span>Поиск</span>
-                        <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
                 <div class="trending-tags">
@@ -94,17 +85,13 @@
 
         <section id="trending" class="video-section">
             <div class="section-header">
-                <h2><i class="fas fa-fire"></i> Популярное</h2>
-                <div class="section-controls">
-                    <button class="control-button"><i class="fas fa-th-large"></i></button>
-                    <button class="control-button"><i class="fas fa-list"></i></button>
-                </div>
+                <h2>Популярное</h2>
             </div>
             <div class="video-grid">
                 <article class="video-card">
                     <div class="thumbnail">
                         <img src="placeholder.jpg" alt="Превью видео" loading="lazy">
-                        <span class="duration"><i class="fas fa-play"></i> 10:30</span>
+                        <span class="duration">10:30</span>
                         <div class="thumbnail-overlay">
                             <button class="play-button">
                                 <i class="fas fa-play"></i>
@@ -120,8 +107,8 @@
                             </div>
                         </div>
                         <div class="meta">
-                            <span><i class="fas fa-eye"></i> 1.2K просмотров</span>
-                            <span><i class="fas fa-clock"></i> 2 дня назад</span>
+                            <span>1.2K просмотров</span>
+                            <span>2 дня назад</span>
                         </div>
                         <div class="tags">
                             <span>#развлечения</span>
@@ -133,8 +120,7 @@
             </div>
             <div class="load-more">
                 <button class="load-more-button">
-                    <span>Показать больше</span>
-                    <i class="fas fa-spinner"></i>
+                    Показать больше
                 </button>
             </div>
         </section>
@@ -159,26 +145,17 @@
             <div class="footer-section">
                 <h3>Быстрые ссылки</h3>
                 <ul>
-                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Главная</a></li>
-                    <li><a href="#trending"><i class="fas fa-chevron-right"></i> Популярное</a></li>
-                    <li><a href="#new"><i class="fas fa-chevron-right"></i> Новое</a></li>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#trending">Популярное</a></li>
+                    <li><a href="#new">Новое</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Присоединяйтесь к нам</h3>
                 <div class="social-links">
-                    <a href="#" class="social-button github">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="#" class="social-button twitter">
-                        <i class="fab fa-twitter"></i>
-                        <span>Twitter</span>
-                    </a>
-                    <a href="#" class="social-button telegram">
-                        <i class="fab fa-telegram"></i>
-                        <span>Telegram</span>
-                    </a>
+                    <a href="#" class="social-button github">GitHub</a>
+                    <a href="#" class="social-button twitter">Twitter</a>
+                    <a href="#" class="social-button telegram">Telegram</a>
                 </div>
             </div>
         </div>
@@ -190,12 +167,6 @@
             </div>
         </div>
     </footer>
-
-    <div class="scroll-to-top">
-        <button aria-label="Наверх">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-    </div>
 
     <script src="js/main.js"></script>
 </body>
