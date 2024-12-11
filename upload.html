@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="system">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,60 +7,165 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/upload.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <!-- Существующая навигация -->
+        <nav>
+            <div class="logo">
+                <span class="logo-text">Hinorium</span>
+            </div>
+            <div class="nav-content">
+                <ul class="nav-links">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/#trending">Популярное</a></li>
+                    <li><a href="/#new">Новое</a></li>
+                </ul>
+            </div>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
     </header>
 
     <main>
         <section class="upload-section">
-            <h1>Загрузить видео</h1>
+            <div class="upload-header">
+                <h1>Загрузить видео</h1>
+                <p class="upload-subtitle">Поделитесь своим контентом с сообществом</p>
+            </div>
+
             <form id="uploadForm" class="upload-form">
-                <div class="upload-area" id="dropZone">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Перетащите видео сюда или</p>
-                    <input type="file" id="videoFile" accept="video/*" hidden>
-                    <button type="button" class="select-file-btn">Выберите файл</button>
-                    <p class="file-info"></p>
+                <div class="form-grid">
+                    <div class="form-left">
+                        <div class="upload-area" id="dropZone">
+                            <div class="upload-area-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Перетащите видео сюда или</p>
+                                <input type="file" id="videoFile" accept="video/*" hidden>
+                                <button type="button" class="select-file-btn">
+                                    <i class="fas fa-plus"></i>
+                                    Выберите файл
+                                </button>
+                                <p class="upload-limits">Максимальный размер: 2GB • MP4, WebM, MOV</p>
+                            </div>
+                            <div class="upload-preview" hidden>
+                                <video id="videoPreview" controls></video>
+                                <button type="button" class="change-file-btn">
+                                    <i class="fas fa-sync-alt"></i>
+                                    Изменить видео
+                                </button>
+                            </div>
+                            <div class="upload-progress" hidden>
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <p class="progress-text">Загружено: <span>0%</span></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title">
+                                <i class="fas fa-heading"></i>
+                                Название видео
+                            </label>
+                            <input type="text" id="title" required placeholder="Введите привлекательное название">
+                            <span class="char-count">0/100</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">
+                                <i class="fas fa-align-left"></i>
+                                Описание
+                            </label>
+                            <textarea id="description" rows="4" placeholder="Расскажите о вашем видео"></textarea>
+                            <span class="char-count">0/500</span>
+                        </div>
+                    </div>
+
+                    <div class="form-right">
+                        <div class="form-group thumbnail-group">
+                            <label for="thumbnail">
+                                <i class="fas fa-image"></i>
+                                Превью
+                            </label>
+                            <div class="thumbnail-upload">
+                                <div class="thumbnail-preview" id="thumbnailPreview">
+                                    <i class="fas fa-image"></i>
+                                    <p>Нажмите для выбора изображения</p>
+                                </div>
+                                <input type="file" id="thumbnail" accept="image/*" hidden>
+                            </div>
+                            <p class="upload-tip">Рекомендуемый размер: 1280×720px</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tags">
+                                <i class="fas fa-tags"></i>
+                                Теги
+                            </label>
+                            <div class="tags-input">
+                                <div class="tags-container"></div>
+                                <input type="text" id="tags" placeholder="Добавьте тег и нажмите Enter">
+                            </div>
+                            <p class="upload-tip">Максимум 5 тегов</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">
+                                <i class="fas fa-folder"></i>
+                                Категория
+                            </label>
+                            <select id="category" required>
+                                <option value="" disabled selected>Выберите категорию</option>
+                                <option value="entertainment">🎭 Развлечения</option>
+                                <option value="gaming">🎮 Игры</option>
+                                <option value="music">🎵 Музыка</option>
+                                <option value="education">📚 Образование</option>
+                                <option value="tech">💻 Технологии</option>
+                                <option value="other">📁 Другое</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group visibility-group">
+                            <label>
+                                <i class="fas fa-eye"></i>
+                                Видимость
+                            </label>
+                            <div class="visibility-options">
+                                <label class="radio-label">
+                                    <input type="radio" name="visibility" value="public" checked>
+                                    <i class="fas fa-globe"></i>
+                                    Публичное
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="visibility" value="unlisted">
+                                    <i class="fas fa-link"></i>
+                                    По ссылке
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="visibility" value="private">
+                                    <i class="fas fa-lock"></i>
+                                    Личное
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="title">Название видео</label>
-                    <input type="text" id="title" required>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn">Отмена</button>
+                    <button type="submit" class="upload-btn" disabled>
+                        <i class="fas fa-upload"></i>
+                        Опубликовать
+                    </button>
                 </div>
-
-                <div class="form-group">
-                    <label for="description">Описание</label>
-                    <textarea id="description" rows="4"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="thumbnail">Превью (миниатюра)</label>
-                    <input type="file" id="thumbnail" accept="image/*">
-                </div>
-
-                <div class="form-group">
-                    <label for="tags">Теги (через запятую)</label>
-                    <input type="text" id="tags" placeholder="#развлечения, #тренды">
-                </div>
-
-                <div class="form-group">
-                    <label for="category">Категория</label>
-                    <select id="category">
-                        <option value="entertainment">Развлечения</option>
-                        <option value="gaming">Игры</option>
-                        <option value="music">Музыка</option>
-                        <option value="other">Другое</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="upload-btn">
-                    <i class="fas fa-upload"></i>
-                    Опубликовать
-                </button>
             </form>
         </section>
     </main>
+
+    <script src="js/upload.js"></script>
 </body>
 </html>
