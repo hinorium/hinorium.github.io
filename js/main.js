@@ -1,4 +1,3 @@
-// Добавляем JavaScript для управления видео
 document.addEventListener('DOMContentLoaded', function() {
     const mainVideo = document.getElementById('bgVideo');
     const previews = document.querySelectorAll('.video-preview');
@@ -74,20 +73,11 @@ document.addEventListener('DOMContentLoaded', function() {
     mainVideo.style.transition = 'opacity 0.3s ease';
 });
 
-// Добавляем эффект параллакса для видео
-document.addEventListener('mousemove', (e) => {
-    const video = document.querySelector('.video-background');
-    const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-    const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-    
-    video.style.transform = `translate(${moveX}px, ${moveY}px)`;
-});
-
 // Мобильное меню
 const menuToggle = document.querySelector('.menu-toggle');
 const navContent = document.querySelector('.nav-content');
 
-menuToggle.addEventListener('click', () => {
+menuToggle?.addEventListener('click', () => {
     navContent.classList.toggle('active');
     document.body.classList.toggle('menu-open');
 });
