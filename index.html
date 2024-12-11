@@ -29,36 +29,54 @@
     </header>
 
     <main>
-        <!-- Обновленная секция hero в HTML -->
-        <section id="home" class="hero">
-             <div class="video-background">
-                     <video autoplay loop muted playsinline>
-                         <source src="/assets/videos/video-2.mp4" type="video/mp4">
-                         </video>
-                     <div class="video-overlay"></div>
-             </div>
-             <div class="hero-content">
-                <h1>Добро пожаловать на Hinorium</h1>
-                <p>Ваш источник развлекательного контента</p>
-                    <div class="search-container">
-                        <input type="text" placeholder="Поиск видео...">
-                        <button class="search-button">
-                            <i class="fas fa-search"></i>
-                            <span>Найти</span>
-                        </button>
-                    </div>
-             </div>
-             <div class="scroll-indicator">
-                <div class="mouse">
-                    <div class="wheel"></div>
-                </div>
-                <div class="arrows">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+      <section id="home" class="hero">
+    <div class="video-background">
+        <video autoplay loop muted playsinline id="bgVideo">
+            <source src="/assets/videos/video-2.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <!-- Добавляем переключатель видео -->
+    <div class="video-switcher">
+        <div class="video-preview" data-video="/assets/videos/video-1.mp4">
+            <video muted loop>
+                <source src="/assets/videos/video-1.mp4" type="video/mp4">
+            </video>
+            <div class="preview-overlay">
+                <span class="preview-number">01</span>
             </div>
-        </section>
+        </div>
+        <div class="video-preview active" data-video="/assets/videos/video-2.mp4">
+            <video muted loop>
+                <source src="/assets/videos/video-2.mp4" type="video/mp4">
+            </video>
+            <div class="preview-overlay">
+                <span class="preview-number">02</span>
+            </div>
+        </div>
+        <div class="video-preview" data-video="/assets/videos/video-3.mp4">
+            <video muted loop>
+                <source src="/assets/videos/video-3.mp4" type="video/mp4">
+            </video>
+            <div class="preview-overlay">
+                <span class="preview-number">03</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-content">
+        <h1>Добро пожаловать на Hinorium</h1>
+        <p>Ваш источник развлекательного контента</p>
+        <div class="search-container">
+            <input type="text" placeholder="Поиск видео...">
+            <button>
+                <i class="fas fa-search"></i>
+                Поиск
+            </button>
+        </div>
+    </div>
+</section>
 
         <section id="trending" class="video-section">
             <h2>Популярное</h2>
