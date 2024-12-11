@@ -1,5 +1,5 @@
 /* Переменные для тем */
-:root[data-theme="light"] {
+:root {
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
     --text-primary: #2d3436;
@@ -11,7 +11,9 @@
     --border-color: #dfe6e9;
 }
 
-:root[data-theme="dark"] {
+/* Темная тема */
+:root[data-theme="dark"],
+.theme-dark {
     --bg-primary: #18191a;
     --bg-secondary: #242526;
     --text-primary: #e4e6eb;
@@ -21,6 +23,20 @@
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --nav-bg: rgba(36, 37, 38, 0.9);
     --border-color: #3e4042;
+}
+
+/* Светлая тема */
+:root[data-theme="light"],
+.theme-light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #2d3436;
+    --text-secondary: #636e72;
+    --accent-color: #0984e3;
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --nav-bg: rgba(255, 255, 255, 0.9);
+    --border-color: #dfe6e9;
 }
 
 /* Базовые стили */
@@ -111,6 +127,12 @@ nav {
 
 .theme-switcher button.active {
     color: var(--accent-color);
+    background-color: var(--bg-secondary);
+    transform: scale(1.1);
+}
+
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Главный экран */
