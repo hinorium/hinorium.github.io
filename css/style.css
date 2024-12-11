@@ -624,17 +624,169 @@ footer {
     -webkit-backface-visibility: hidden;
 }
 
-/* Исправление для iOS */
+/* Улучшенная поддержка для мобильных устройств */
 @supports (-webkit-touch-callout: none) {
+    /* iOS-specific styles */
     .hero {
         height: -webkit-fill-available;
+        min-height: -webkit-fill-available;
+    }
+
+    .video-background video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: none;
+        top: 0;
+        left: 0;
     }
 }
 
-/* Исправление для некоторых мобильных браузеров */
-@media screen and (max-height: 600px) {
+/* Android и общие мобильные стили */
+@media screen and (max-width: 768px) {
+    /* Улучшенное сенсорное взаимодействие */
+    .video-preview {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .search-container input,
+    .search-container button {
+        font-size: 16px; /* Предотвращает масштабирование на iOS */
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+    }
+
+    /* Улучшенная производительность прокрутки */
+    .hero,
+    .video-section,
+    .footer-content {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Исправление для клавиатуры на мобильных */
+    .search-container {
+        position: relative;
+        z-index: 4;
+    }
+
+    /* Улучшенная поддержка жестов */
+    .video-switcher {
+        touch-action: pan-x;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+}
+
+/* Исправления для различных мобильных браузеров */
+@supports (padding: max(0px)) {
+    .hero,
+    .video-section,
+    footer {
+        padding-left: max(2rem, env(safe-area-inset-left));
+        padding-right: max(2rem, env(safe-area-inset-right));
+    }
+
+    .hero {
+        padding-top: max(80px, env(safe-area-inset-top));
+    }
+
+    footer {
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* Оптимизация производительности для мобильных */
+@media screen and (max-width: 768px) {
+    .video-background,
+    .video-preview,
+    .search-container {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        perspective: 1000;
+        -webkit-perspective: 1000;
+    }
+
+    /* Улучшенная производительность анимаций */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 20px, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+/* Исправление для устройств с вырезами (notch) */
+@supports (padding-top: constant(safe-area-inset-top)) {
+    .hero {
+        padding-top: calc(80px + constant(safe-area-inset-top));
+    }
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+    .hero {
+        padding-top: calc(80px + env(safe-area-inset-top));
+    }
+}
+
+/* Улучшенная поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+    .video-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(10, 10, 12, 0.9) 0%,
+            rgba(19, 21, 26, 0.97) 100%
+        );
+    }
+}
+
+/* Исправление для складных устройств */
+@media (max-width: 768px) and (orientation: landscape) {
     .hero {
         height: auto;
         min-height: 100vh;
+    }
+
+    .video-switcher {
+        position: fixed;
+        bottom: 1rem;
+    }
+}
+
+/* Оптимизация для устройств с низким энергопотреблением */
+@media (prefers-reduced-motion: reduce) {
+    .video-preview,
+    .search-container button,
+    .video-card {
+        transition: none;
+    }
+
+    .hero p,
+    .search-container {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* Улучшенная поддержка сенсорных событий */
+@media (hover: none) {
+    .video-preview:hover {
+        transform: none;
+    }
+
+    .search-container button:hover {
+        transform: none;
+    }
+
+    .video-card:hover {
+        transform: none;
     }
 }
