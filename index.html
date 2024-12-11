@@ -29,16 +29,35 @@
     </header>
 
     <main>
+        <!-- Обновленная секция hero в HTML -->
         <section id="home" class="hero">
-            <div class="hero-content">
-                <h1>Откройте мир развлечений</h1>
-                <p>Лучшие видео собраны для вас</p>
-                <div class="search-container">
-                    <input type="text" placeholder="Поиск видео...">
-                    <button><i class="fas fa-search"></i></button>
+             <div class="video-background">
+                     <video autoplay loop muted playsinline>
+                         <source src="/assets/videos/video-2.mp4" type="video/mp4">
+                         </video>
+                     <div class="video-overlay"></div>
+             </div>
+             <div class="hero-content">
+                <h1>Добро пожаловать на Hinorium</h1>
+                <p>Ваш источник развлекательного контента</p>
+                    <div class="search-container">
+                        <input type="text" placeholder="Поиск видео...">
+                        <button class="search-button">
+                            <i class="fas fa-search"></i>
+                            <span>Найти</span>
+                        </button>
+                    </div>
+             </div>
+             <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <div class="arrows">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
-            <div class="hero-backdrop"></div>
         </section>
 
         <section id="trending" class="video-section">
