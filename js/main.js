@@ -1,76 +1,86 @@
-// Управление темой
-class ThemeManager {
-    constructor() {
-        this.root = document.documentElement;
-        this.themeButtons = {
-            light: document.getElementById('theme-light'),
-            dark: document.getElementById('theme-dark'),
-            system: document.getElementById('theme-system')
-        };
-        
-        this.initTheme();
-        this.setupEventListeners();
-    }
-
-    initTheme() {
-        const savedTheme = localStorage.getItem('theme-preference') || 'system';
-        this.setTheme(savedTheme, true);
-    }
-
-    getSystemTheme() {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-
-    setTheme(theme, isInitial = false) {
-        // Удаляем все классы тем
-        this.root.classList.remove('theme-light', 'theme-dark');
-        
-        // Убираем активное состояние со всех кнопок
-        Object.values(this.themeButtons).forEach(button => {
-            button?.classList.remove('active');
+// Добавляем JavaScript для управления видео
+document.addEventListener('DOMContentLoaded', function() {
+    const mainVideo = document.getElementById('bgVideo');
+    const previews = document.querySelectorAll('.video-preview');
+    let currentVideo = document.querySelector('.video-preview.active');
+    
+    // Предзагрузка видео
+    const preloadVideo = (src) => {
+        return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.src = src;
+            video.onloadeddata = () => resolve(src);
+            video.onerror = reject;
         });
+    };
 
-        let effectiveTheme = theme;
-        if (theme === 'system') {
-            effectiveTheme = this.getSystemTheme();
-            this.themeButtons.system?.classList.add('active');
-        } else {
-            this.themeButtons[theme]?.classList.add('active');
+    // Функция смены видео с анимацией
+    const changeVideo = async (newSrc) => {
+        try {
+            // Предзагружаем новое видео
+            await preloadVideo(newSrc);
+            
+            // Плавно скрываем текущее видео
+            mainVideo.style.opacity = '0';
+            
+            setTimeout(() => {
+                // Меняем источник
+                mainVideo.src = newSrc;
+                
+                // Воспроизводим новое видео
+                mainVideo.load();
+                mainVideo.play();
+                
+                // Плавно показываем новое видео
+                mainVideo.style.opacity = '1';
+            }, 300);
+            
+        } catch (error) {
+            console.error('Error loading video:', error);
         }
+    };
 
-        // Установка атрибута data-theme
-        this.root.setAttribute('data-theme', effectiveTheme);
-        // Добавление класса темы
-        this.root.classList.add(`theme-${effectiveTheme}`);
-
-        if (!isInitial) {
-            localStorage.setItem('theme-preference', theme);
-        }
-
-        // Добавим вывод в консоль для отладки
-        console.log('Theme set to:', effectiveTheme);
-        console.log('data-theme attribute:', this.root.getAttribute('data-theme'));
-        console.log('classList:', this.root.classList);
-    }
-
-    setupEventListeners() {
-        // Обработчики для кнопок
-        Object.entries(this.themeButtons).forEach(([theme, button]) => {
-            button?.addEventListener('click', () => this.setTheme(theme));
+    // Обработчики событий для превью
+    previews.forEach(preview => {
+        // При наведении воспроизводим превью
+        preview.addEventListener('mouseenter', () => {
+            const previewVideo = preview.querySelector('video');
+            previewVideo.play();
         });
 
-        // Слушатель изменения системной темы
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            if (localStorage.getItem('theme-preference') === 'system') {
-                this.setTheme('system');
-            }
+        // При уходе мыши останавливаем превью
+        preview.addEventListener('mouseleave', () => {
+            const previewVideo = preview.querySelector('video');
+            previewVideo.pause();
+            previewVideo.currentTime = 0;
         });
-    }
-}
 
-// Инициализация менеджера темы после загрузки DOM
-document.addEventListener('DOMContentLoaded', () => {
-    const themeManager = new ThemeManager();
+        // При клике меняем основное видео
+        preview.addEventListener('click', async () => {
+            if (preview === currentVideo) return;
+
+            // Обновляем активное состояние
+            currentVideo.classList.remove('active');
+            preview.classList.add('active');
+            currentVideo = preview;
+
+            // Меняем видео
+            const newVideoSrc = preview.dataset.video;
+            await changeVideo(newVideoSrc);
+        });
+    });
+
+    // Добавляем плавные переходы для видео
+    mainVideo.style.transition = 'opacity 0.3s ease';
+});
+
+// Добавляем эффект параллакса для видео
+document.addEventListener('mousemove', (e) => {
+    const video = document.querySelector('.video-background');
+    const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+    const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+    
+    video.style.transform = `translate(${moveX}px, ${moveY}px)`;
 });
 
 // Мобильное меню
