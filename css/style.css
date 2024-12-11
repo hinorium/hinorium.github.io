@@ -1,19 +1,5 @@
-/* Переменные для тем */
+/* Основные переменные в темной теме */
 :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #2d3436;
-    --text-secondary: #636e72;
-    --accent-color: #0984e3;
-    --card-bg: #ffffff;
-    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --nav-bg: rgba(255, 255, 255, 0.9);
-    --border-color: #dfe6e9;
-}
-
-/* Темная тема */
-:root[data-theme="dark"],
-.theme-dark {
     --bg-primary: #18191a;
     --bg-secondary: #242526;
     --text-primary: #e4e6eb;
@@ -23,20 +9,7 @@
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     --nav-bg: rgba(36, 37, 38, 0.9);
     --border-color: #3e4042;
-}
-
-/* Светлая тема */
-:root[data-theme="light"],
-.theme-light {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #2d3436;
-    --text-secondary: #636e72;
-    --accent-color: #0984e3;
-    --card-bg: #ffffff;
-    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --nav-bg: rgba(255, 255, 255, 0.9);
-    --border-color: #dfe6e9;
+    --hover-bg: #3a3b3c;
 }
 
 /* Базовые стили */
@@ -51,7 +24,6 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Навигация */
@@ -104,37 +76,6 @@ nav {
     color: var(--accent-color);
 }
 
-/* Переключатель темы */
-.theme-switcher {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.theme-switcher button {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.theme-switcher button:hover {
-    background-color: var(--bg-secondary);
-    color: var(--accent-color);
-}
-
-.theme-switcher button.active {
-    color: var(--accent-color);
-    background-color: var(--bg-secondary);
-    transform: scale(1.1);
-}
-
-* {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
 /* Главный экран */
 .hero {
     min-height: 100vh;
@@ -173,6 +114,12 @@ nav {
     border-radius: 0.5rem;
     background: var(--card-bg);
     color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: var(--accent-color);
 }
 
 .search-container button {
@@ -185,6 +132,10 @@ nav {
     transition: background-color 0.3s;
 }
 
+.search-container button:hover {
+    background: #2374e1;
+}
+
 /* Сетка видео */
 .video-section {
     padding: 4rem 2rem;
@@ -195,6 +146,7 @@ nav {
 .video-section h2 {
     margin-bottom: 2rem;
     font-size: 2rem;
+    color: var(--text-primary);
 }
 
 .video-grid {
@@ -209,10 +161,12 @@ nav {
     overflow: hidden;
     box-shadow: var(--card-shadow);
     transition: transform 0.3s;
+    border: 1px solid var(--border-color);
 }
 
 .video-card:hover {
     transform: translateY(-4px);
+    background: var(--hover-bg);
 }
 
 .thumbnail {
@@ -244,6 +198,11 @@ nav {
     padding: 1rem;
 }
 
+.video-info h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
 .meta {
     display: flex;
     gap: 1rem;
@@ -271,6 +230,7 @@ footer {
     background: var(--bg-secondary);
     padding: 4rem 2rem 1rem;
     margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
@@ -283,6 +243,7 @@ footer {
 
 .footer-section h3 {
     margin-bottom: 1rem;
+    color: var(--text-primary);
 }
 
 .footer-section ul {
@@ -306,6 +267,10 @@ footer {
 
 .social-links a {
     font-size: 1.5rem;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
 }
 
 .footer-bottom {
@@ -353,6 +318,7 @@ footer {
         right: 0;
         background: var(--nav-bg);
         padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
     }
 
     .nav-links {
