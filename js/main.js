@@ -31,13 +31,9 @@ function initBackgroundVideoSystem() {
             </div>
         `;
 
-        // Добавляем обработчики событий
         const previewVideo = preview.querySelector('video');
         
-        preview.addEventListener('mouseenter', () => {
-            previewVideo.play();
-        });
-
+        preview.addEventListener('mouseenter', () => previewVideo.play());
         preview.addEventListener('mouseleave', () => {
             previewVideo.pause();
             previewVideo.currentTime = 0;
@@ -45,16 +41,10 @@ function initBackgroundVideoSystem() {
 
         preview.addEventListener('click', () => {
             if (preview.classList.contains('active')) return;
-            
-            // Обновляем активное состояние
             document.querySelector('.video-preview.active')?.classList.remove('active');
             preview.classList.add('active');
             currentVideoIndex = index;
-
-            // Меняем фоновое видео
             changeBackgroundVideo(index);
-            
-            // Обновляем превью
             updatePreviews();
         });
 
@@ -64,16 +54,11 @@ function initBackgroundVideoSystem() {
     // Функция обновления превью
     function updatePreviews() {
         const previews = Array.from(videoSwitcher.children);
-        
-        // Плавно скрываем текущие превью
-        previews.forEach(preview => {
-            preview.style.opacity = '0';
-        });
+        previews.forEach(preview => preview.style.opacity = '0');
 
         setTimeout(() => {
             videoSwitcher.innerHTML = '';
             
-            // Создаем новые превью вокруг текущего видео
             for (let i = 0; i < previewsToShow; i++) {
                 const offset = i - Math.floor(previewsToShow / 2);
                 let videoIndex = ((currentVideoIndex + offset - 1 + totalVideos) % totalVideos) + 1;
@@ -82,7 +67,6 @@ function initBackgroundVideoSystem() {
                 videoSwitcher.appendChild(preview);
             }
 
-            // Плавно показываем новые превью
             requestAnimationFrame(() => {
                 videoSwitcher.querySelectorAll('.video-preview').forEach(preview => {
                     preview.style.opacity = '1';
@@ -94,12 +78,8 @@ function initBackgroundVideoSystem() {
     // Функция смены фонового видео
     async function changeBackgroundVideo(index) {
         const newSrc = `/assets/videos/video-${index}.mp4`;
-        
         try {
-            // Предзагружаем новое видео
             await preloadVideo(newSrc);
-            
-            // Плавно скрываем текущее видео
             mainVideo.style.opacity = '0';
             
             setTimeout(() => {
@@ -113,14 +93,6 @@ function initBackgroundVideoSystem() {
         }
     }
 
-    // Автоматическая смена видео каждые 30 секунд
-    setInterval(() => {
-        currentVideoIndex = (currentVideoIndex % totalVideos) + 1;
-        changeBackgroundVideo(currentVideoIndex);
-        updatePreviews();
-    }, 30000);
-
-    // Предзагрузка видео
     function preloadVideo(src) {
         return new Promise((resolve, reject) => {
             const video = document.createElement('video');
@@ -130,19 +102,16 @@ function initBackgroundVideoSystem() {
         });
     }
 
-    // Добавляем плавные переходы
+    // Автоматическая смена видео
+    setInterval(() => {
+        currentVideoIndex = (currentVideoIndex % totalVideos) + 1;
+        changeBackgroundVideo(currentVideoIndex);
+        updatePreviews();
+    }, 30000);
+
+    // Плавные переходы
     mainVideo.style.transition = 'opacity 0.3s ease';
-    document.querySelectorAll('.video-preview').forEach(preview => {
-        preview.style.transition = 'opacity 0.3s ease';
-    });
 }
-
-// Инициализируем систему при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    initBackgroundVideoSystem();
-});
-
-// End
 
 // Функция загрузки новых видео
 async function loadNewVideos() {
@@ -188,142 +157,49 @@ async function loadNewVideos() {
     }
 }
 
-// Загружаем новые видео при прокрутке до секции
-const newSection = document.getElementById('new');
-if (newSection) {
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    initBackgroundVideoSystem();
+    
+    // Мобильное меню
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navContent = document.querySelector('.nav-content');
+
+    menuToggle?.addEventListener('click', () => {
+        navContent.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+
+    // Плавная прокрутка
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            navContent.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Загрузка новых видео при прокрутке
+    const newSection = document.getElementById('new');
+    if (newSection) {
+        const observer = new IntersectionObserver(
+            entries => entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     loadNewVideos();
                     observer.unobserve(entry.target);
                 }
-            });
-        },
-        { threshold: 0.1 }
-    );
-    
-    observer.observe(newSection);
-}
-
-// End [Upload Videos] 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const mainVideo = document.getElementById('bgVideo');
-    const previews = document.querySelectorAll('.video-preview');
-    let currentVideo = document.querySelector('.video-preview.active');
-    
-    // Предзагрузка видео
-    const preloadVideo = (src) => {
-        return new Promise((resolve, reject) => {
-            const video = document.createElement('video');
-            video.src = src;
-            video.onloadeddata = () => resolve(src);
-            video.onerror = reject;
-        });
-    };
-
-    // Функция смены видео с анимацией
-    const changeVideo = async (newSrc) => {
-        try {
-            // Предзагружаем новое видео
-            await preloadVideo(newSrc);
-            
-            // Плавно скрываем текущее видео
-            mainVideo.style.opacity = '0';
-            
-            setTimeout(() => {
-                // Меняем источник
-                mainVideo.src = newSrc;
-                
-                // Воспроизводим новое видео
-                mainVideo.load();
-                mainVideo.play();
-                
-                // Плавно показываем новое видео
-                mainVideo.style.opacity = '1';
-            }, 300);
-            
-        } catch (error) {
-            console.error('Error loading video:', error);
-        }
-    };
-
-    // Обработчики событий для превью
-    previews.forEach(preview => {
-        // При наведении воспроизводим превью
-        preview.addEventListener('mouseenter', () => {
-            const previewVideo = preview.querySelector('video');
-            previewVideo.play();
-        });
-
-        // При уходе мыши останавливаем превью
-        preview.addEventListener('mouseleave', () => {
-            const previewVideo = preview.querySelector('video');
-            previewVideo.pause();
-            previewVideo.currentTime = 0;
-        });
-
-        // При клике меняем основное видео
-        preview.addEventListener('click', async () => {
-            if (preview === currentVideo) return;
-
-            // Обновляем активное состояние
-            currentVideo.classList.remove('active');
-            preview.classList.add('active');
-            currentVideo = preview;
-
-            // Меняем видео
-            const newVideoSrc = preview.dataset.video;
-            await changeVideo(newVideoSrc);
-        });
-    });
-
-    // Добавляем плавные переходы для видео
-    mainVideo.style.transition = 'opacity 0.3s ease';
-});
-
-// Мобильное меню
-const menuToggle = document.querySelector('.menu-toggle');
-const navContent = document.querySelector('.nav-content');
-
-menuToggle?.addEventListener('click', () => {
-    navContent.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-});
-
-// Плавная прокрутка
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        navContent.classList.remove('active');
-        document.body.classList.remove('menu-open');
+            }),
+            { threshold: 0.1 }
+        );
         
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Анимация появления карточек при прокрутке
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.video-card').forEach(card => {
-    observer.observe(card);
+        observer.observe(newSection);
+    }
 });
