@@ -1,10 +1,14 @@
-// Функция для управления фоновыми видео
 function initBackgroundVideoSystem() {
     const mainVideo = document.getElementById('bgVideo');
     const videoSwitcher = document.querySelector('.video-switcher');
-    const totalVideos = 33; // Общее количество видео
-    const previewsToShow = 5; // Количество превью для показа
-    let currentVideoIndex = 2; // Начинаем с video-2.mp4
+    const videoOverlay = document.querySelector('.video-overlay');
+    const totalVideos = 33;
+    const previewsToShow = 5;
+    let currentVideoIndex = 2;
+
+    // Добавляем класс для анимации
+    mainVideo.classList.add('video-transition');
+    videoOverlay.classList.add('overlay-transition');
 
     // Очищаем текущие превью
     videoSwitcher.innerHTML = '';
@@ -16,7 +20,6 @@ function initBackgroundVideoSystem() {
         videoSwitcher.appendChild(preview);
     }
 
-    // Функция создания превью видео
     function createVideoPreview(index, isActive) {
         const preview = document.createElement('div');
         preview.className = `video-preview${isActive ? ' active' : ''}`;
@@ -33,14 +36,24 @@ function initBackgroundVideoSystem() {
 
         const previewVideo = preview.querySelector('video');
         
-        preview.addEventListener('mouseenter', () => previewVideo.play());
+        preview.addEventListener('mouseenter', () => {
+            previewVideo.play();
+            preview.classList.add('preview-hover');
+        });
+
         preview.addEventListener('mouseleave', () => {
             previewVideo.pause();
             previewVideo.currentTime = 0;
+            preview.classList.remove('preview-hover');
         });
 
         preview.addEventListener('click', () => {
             if (preview.classList.contains('active')) return;
+            
+            // Эффект нажатия
+            preview.classList.add('preview-click');
+            setTimeout(() => preview.classList.remove('preview-click'), 300);
+
             document.querySelector('.video-preview.active')?.classList.remove('active');
             preview.classList.add('active');
             currentVideoIndex = index;
@@ -51,10 +64,14 @@ function initBackgroundVideoSystem() {
         return preview;
     }
 
-    // Функция обновления превью
     function updatePreviews() {
         const previews = Array.from(videoSwitcher.children);
-        previews.forEach(preview => preview.style.opacity = '0');
+        videoSwitcher.classList.add('switcher-transition');
+        
+        previews.forEach(preview => {
+            preview.style.transform = 'scale(0.95)';
+            preview.style.opacity = '0';
+        });
 
         setTimeout(() => {
             videoSwitcher.innerHTML = '';
@@ -64,29 +81,39 @@ function initBackgroundVideoSystem() {
                 let videoIndex = ((currentVideoIndex + offset - 1 + totalVideos) % totalVideos) + 1;
                 const preview = createVideoPreview(videoIndex, offset === 0);
                 preview.style.opacity = '0';
+                preview.style.transform = 'scale(0.95)';
                 videoSwitcher.appendChild(preview);
             }
 
             requestAnimationFrame(() => {
                 videoSwitcher.querySelectorAll('.video-preview').forEach(preview => {
                     preview.style.opacity = '1';
+                    preview.style.transform = 'scale(1)';
                 });
             });
+            
+            videoSwitcher.classList.remove('switcher-transition');
         }, 300);
     }
 
-    // Функция смены фонового видео
     async function changeBackgroundVideo(index) {
         const newSrc = `/assets/videos/video-${index}.mp4`;
         try {
             await preloadVideo(newSrc);
-            mainVideo.style.opacity = '0';
+            
+            // Добавляем эффекты перехода
+            mainVideo.classList.add('video-fade');
+            videoOverlay.classList.add('overlay-fade');
             
             setTimeout(() => {
                 mainVideo.src = newSrc;
                 mainVideo.load();
                 mainVideo.play();
-                mainVideo.style.opacity = '1';
+                
+                setTimeout(() => {
+                    mainVideo.classList.remove('video-fade');
+                    videoOverlay.classList.remove('overlay-fade');
+                }, 50);
             }, 300);
         } catch (error) {
             console.error('Error loading video:', error);
@@ -101,17 +128,10 @@ function initBackgroundVideoSystem() {
             video.onerror = reject;
         });
     }
-
-    // Автоматическая смена видео
-    setInterval(() => {
-        currentVideoIndex = (currentVideoIndex % totalVideos) + 1;
-        changeBackgroundVideo(currentVideoIndex);
-        updatePreviews();
-    }, 30000);
-
-    // Плавные переходы
-    mainVideo.style.transition = 'opacity 0.3s ease';
 }
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', initBackgroundVideoSystem);
 
 // Функция загрузки новых видео
 async function loadNewVideos() {
