@@ -15,135 +15,135 @@
                 <div class="logo">
                     <span class="logo-text">Hinorium</span>
                 </div>
-            <div class="nav-content">
-                <ul class="nav-links">
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#trending">Популярное</a></li>
-                    <li><a href="#new">Новое</a></li>
-                </ul>
-            </div>
-            <div class="nav-actions">
-                <a href="/upload" class="upload-nav-btn">
-                    <i class="fas fa-plus"></i>
-                    <span>Загрузить</span>
-                </a>
-                <button class="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+                <div class="nav-content">
+                    <ul class="nav-links">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#trending">Популярное</a></li>
+                        <li><a href="#new">Новое</a></li>
+                    </ul>
+                </div>
+                <div class="nav-actions">
+                    <a href="/upload" class="upload-nav-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>Загрузить</span>
+                    </a>
+                    <button class="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </header>
 
-    <main>
-      <section id="home" class="hero">
-    <div class="video-background">
-        <video autoplay loop muted playsinline id="bgVideo">
-            <source src="/assets/videos/video-2.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
+        <main>
+            <section id="home" class="hero">
+                <div class="video-background">
+                    <video autoplay loop muted playsinline id="bgVideo">
+                        <source src="/assets/videos/video-2.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay"></div>
+                </div>
     
-    <!-- Добавляем переключатель видео -->
-    <div class="video-switcher">
-        <div class="video-preview" data-video="/assets/videos/video-1.mp4">
-            <video muted loop>
-                <source src="/assets/videos/video-1.mp4" type="video/mp4">
-            </video>
-            <div class="preview-overlay">
-                <span class="preview-number">01</span>
-            </div>
-        </div>
-        <div class="video-preview active" data-video="/assets/videos/video-2.mp4">
-            <video muted loop>
-                <source src="/assets/videos/video-2.mp4" type="video/mp4">
-            </video>
-            <div class="preview-overlay">
-                <span class="preview-number">02</span>
-            </div>
-        </div>
-        <div class="video-preview" data-video="/assets/videos/video-3.mp4">
-            <video muted loop>
-                <source src="/assets/videos/video-3.mp4" type="video/mp4">
-            </video>
-            <div class="preview-overlay">
-                <span class="preview-number">03</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="hero-content">
-        <h1>Добро пожаловать на Hinorium</h1>
-        <p>Ваш источник развлекательного контента</p>
-        <div class="search-container">
-            <input type="text" placeholder="Поиск видео...">
-            <button>
-                <i class="fas fa-search"></i>
-                Поиск
-            </button>
-        </div>
-    </div>
-</section>
-
-        <section id="new" class="video-section">
-            <h2>Новое</h2>
-                <div class="video-grid" id="newVideos">
-                    <!-- Видео будут добавляться динамически -->
-                </div>
-        </section>
-
-        <section id="trending" class="video-section">
-            <h2>Популярное</h2>
-            <div class="video-grid">
-                <!-- Шаблон карточки видео -->
-                <article class="video-card">
-                    <div class="thumbnail">
-                        <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2165610/4456c4e032b1dbd07b8775784852f3e715386403.jpg" alt="Превью видео">
-                        <span class="duration">10:30</span>
-                    </div>
-                    <div class="video-info">
-                        <h3>Кошка-девочку ебут в рот и кончают на лицо | Hentai!</h3>
-                        <div class="meta">
-                            <span class="views">1.2K просмотров</span>
-                            <span class="date">2 дня назад</span>
-                        </div>
-                        <div class="tags">
-                            <span>#развлечения</span>
-                            <span>#тренды</span>
-                            <span>#хентай</span>
-                            <span>порнография</span>
+                <!-- Добавляем переключатель видео -->
+                <div class="video-switcher">
+                    <div class="video-preview" data-video="/assets/videos/video-1.mp4">
+                        <video muted loop>
+                            <source src="/assets/videos/video-1.mp4" type="video/mp4">
+                        </video>
+                        <div class="preview-overlay">
+                            <span class="preview-number">01</span>
                         </div>
                     </div>
-                </article>
-                <!-- Повторить для других видео -->
-            </div>
-        </section>
-    </main>
+                    <div class="video-preview active" data-video="/assets/videos/video-2.mp4">
+                        <video muted loop>
+                            <source src="/assets/videos/video-2.mp4" type="video/mp4">
+                        </video>
+                        <div class="preview-overlay">
+                            <span class="preview-number">02</span>
+                        </div>
+                    </div>
+                    <div class="video-preview" data-video="/assets/videos/video-3.mp4">
+                        <video muted loop>
+                            <source src="/assets/videos/video-3.mp4" type="video/mp4">
+                        </video>
+                        <div class="preview-overlay">
+                            <span class="preview-number">03</span>
+                        </div>
+                    </div>
+                </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>О проекте</h3>
-                <p>Hinorium - платформа для размещения развлекательного видеоконтента</p>
-            </div>
-            <div class="footer-section">
-                <h3>Навигация</h3>
-                <ul>
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#trending">Популярное</a></li>
-                    <li><a href="#new">Новое</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Социальные сети</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
+                <div class="hero-content">
+                    <h1>Добро пожаловать на Hinorium</h1>
+                    <p>Ваш источник развлекательного контента</p>
+                    <div class="search-container">
+                        <input type="text" placeholder="Поиск видео...">
+                        <button>
+                            <i class="fas fa-search"></i>
+                            Поиск
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+             <section id="new" class="video-section">
+                 <h2>Новое</h2>
+                     <div class="video-grid" id="newVideos">
+                         <!-- Видео будут добавляться динамически -->
+                     </div>
+            </section>
+
+                <section id="trending" class="video-section">
+                    <h2>Популярное</h2>
+                    <div class="video-grid">
+                        <!-- Шаблон карточки видео -->
+                        <article class="video-card">
+                            <div class="thumbnail">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2165610/4456c4e032b1dbd07b8775784852f3e715386403.jpg" alt="Превью видео">
+                            <span class="duration">10:30</span>
+                        </div>
+                        <div class="video-info">
+                            <h3>Кошка-девочку ебут в рот и кончают на лицо | Hentai!</h3>
+                            <div class="meta">
+                                <span class="views">1.2K просмотров</span>
+                                <span class="date">2 дня назад</span>
+                            </div>
+                            <div class="tags">
+                                <span>#развлечения</span>
+                                <span>#тренды</span>
+                                <span>#хентай</span>
+                                <span>#порнография</span>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- Повторить для других видео -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О проекте</h3>
+                    <p>Hinorium - платформа для размещения развлекательного видеоконтента</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Навигация</h3>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#trending">Популярное</a></li>
+                        <li><a href="#new">Новое</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Социальные сети</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 Hinorium</p>
             </div>
