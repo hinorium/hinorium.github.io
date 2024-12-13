@@ -1,3 +1,22 @@
+// Отключаем контекстное меню
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+// Отключаем клавиши для копирования
+document.addEventListener('keydown', (e) => {
+    if (
+        // Ctrl+C, Ctrl+V, Ctrl+X
+        (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x')) ||
+        // Command+C, Command+V, Command+X (для Mac)
+        (e.metaKey && (e.key === 'c' || e.key === 'v' || e.key === 'x'))
+    ) {
+        e.preventDefault();
+    }
+});
+
+// Отключаем drag and drop
+document.addEventListener('dragstart', (e) => e.preventDefault());
+document.addEventListener('drop', (e) => e.preventDefault());
+
 class BackgroundVideoManager {
     constructor() {
         this.mainVideo = document.getElementById('bgVideo');
