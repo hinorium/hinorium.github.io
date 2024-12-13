@@ -10,19 +10,16 @@ class BackgroundVideoManager {
         this.isTransitioning = false;
     }
 
-    // Инициализация системы
     init() {
         this.setupVideoTransitions();
         this.createPreviews();
     }
 
-    // Настройка переходов видео
     setupVideoTransitions() {
         this.mainVideo.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1s cubic-bezier(0.4, 0, 0.2, 1)';
         this.videoOverlay.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1)';
     }
 
-    // Создание превью
     createPreviews() {
         this.videoSwitcher.innerHTML = '';
         for (let i = 0; i < this.previewsToShow; i++) {
@@ -32,7 +29,6 @@ class BackgroundVideoManager {
         }
     }
 
-    // Создание элемента превью
     createPreviewElement(index, isActive) {
         const preview = document.createElement('div');
         preview.className = `video-preview${isActive ? ' active' : ''}`;
@@ -51,7 +47,6 @@ class BackgroundVideoManager {
         return preview;
     }
 
-    // Настройка событий превью
     setupPreviewEvents(preview, index) {
         const previewVideo = preview.querySelector('video');
 
@@ -76,7 +71,6 @@ class BackgroundVideoManager {
         });
     }
 
-    // Переключение видео
     async switchVideo(index, clickedPreview) {
         if (this.isTransitioning) return;
         this.isTransitioning = true;
@@ -95,19 +89,16 @@ class BackgroundVideoManager {
         }
     }
 
-    // Анимация перехода видео
     async transitionVideo(index) {
         const newSrc = `/assets/videos/video-${index}.mp4`;
         await this.preloadVideo(newSrc);
 
-        // Анимация начала перехода
         this.mainVideo.style.transform = 'scale(1.1)';
         this.mainVideo.style.filter = 'blur(10px)';
         this.videoOverlay.style.opacity = '0.9';
 
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        // Смена видео
         this.mainVideo.src = newSrc;
         this.mainVideo.load();
         await new Promise(resolve => {
@@ -115,14 +106,12 @@ class BackgroundVideoManager {
             this.mainVideo.play();
         });
 
-        // Анимация завершения перехода
         await new Promise(resolve => setTimeout(resolve, 100));
         this.mainVideo.style.transform = 'scale(1)';
         this.mainVideo.style.filter = 'blur(0px)';
         this.videoOverlay.style.opacity = '0.7';
     }
 
-    // Обновление превью
     updatePreviews() {
         const previews = Array.from(this.videoSwitcher.children);
         this.videoSwitcher.classList.add('switcher-transition');
@@ -138,7 +127,6 @@ class BackgroundVideoManager {
         }, 300);
     }
 
-    // Предзагрузка видео
     preloadVideo(src) {
         return new Promise((resolve, reject) => {
             const video = document.createElement('video');
@@ -148,54 +136,6 @@ class BackgroundVideoManager {
         });
     }
 }
-
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    const videoManager = new BackgroundVideoManager();
-    videoManager.init();
-
-    // Мобильное меню
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navContent = document.querySelector('.nav-content');
-
-    menuToggle?.addEventListener('click', () => {
-        navContent.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    });
-
-    // Плавная прокрутка
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            navContent.classList.remove('active');
-            document.body.classList.remove('menu-open');
-            
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Загрузка новых видео при прокрутке
-    const newSection = document.getElementById('new');
-    if (newSection) {
-        const observer = new IntersectionObserver(
-            entries => entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    loadNewVideos();
-                    observer.unobserve(entry.target);
-                }
-            }),
-            { threshold: 0.1 }
-        );
-        
-        observer.observe(newSection);
-    }
-});
 
 // Функция загрузки новых видео
 async function loadNewVideos() {
@@ -241,142 +181,68 @@ async function loadNewVideos() {
     }
 }
 
-// Загружаем новые видео при прокрутке до секции
-const newSection = document.getElementById('new');
-if (newSection) {
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация менеджера видео
+    const videoManager = new BackgroundVideoManager();
+    videoManager.init();
+
+    // Мобильное меню
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navContent = document.querySelector('.nav-content');
+
+    menuToggle?.addEventListener('click', () => {
+        navContent.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+
+    // Плавная прокрутка
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            navContent.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Загрузка новых видео при прокрутке
+    const newSection = document.getElementById('new');
+    if (newSection) {
+        const observer = new IntersectionObserver(
+            entries => entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     loadNewVideos();
                     observer.unobserve(entry.target);
                 }
+            }),
+            { threshold: 0.1 }
+        );
+        
+        observer.observe(newSection);
+    }
+
+    // Анимация появления карточек
+    const cardObserver = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    cardObserver.unobserve(entry.target);
+                }
             });
         },
-        { threshold: 0.1 }
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
-    
-    observer.observe(newSection);
-}
 
-// End [Upload Videos] 
-
-document.addEventListener('DOMContentLoaded', function() {
-    const mainVideo = document.getElementById('bgVideo');
-    const previews = document.querySelectorAll('.video-preview');
-    let currentVideo = document.querySelector('.video-preview.active');
-    
-    // Предзагрузка видео
-    const preloadVideo = (src) => {
-        return new Promise((resolve, reject) => {
-            const video = document.createElement('video');
-            video.src = src;
-            video.onloadeddata = () => resolve(src);
-            video.onerror = reject;
-        });
-    };
-
-    // Функция смены видео с анимацией
-    const changeVideo = async (newSrc) => {
-        try {
-            // Предзагружаем новое видео
-            await preloadVideo(newSrc);
-            
-            // Плавно скрываем текущее видео
-            mainVideo.style.opacity = '0';
-            
-            setTimeout(() => {
-                // Меняем источник
-                mainVideo.src = newSrc;
-                
-                // Воспроизводим новое видео
-                mainVideo.load();
-                mainVideo.play();
-                
-                // Плавно показываем новое видео
-                mainVideo.style.opacity = '1';
-            }, 300);
-            
-        } catch (error) {
-            console.error('Error loading video:', error);
-        }
-    };
-
-    // Обработчики событий для превью
-    previews.forEach(preview => {
-        // При наведении воспроизводим превью
-        preview.addEventListener('mouseenter', () => {
-            const previewVideo = preview.querySelector('video');
-            previewVideo.play();
-        });
-
-        // При уходе мыши останавливаем превью
-        preview.addEventListener('mouseleave', () => {
-            const previewVideo = preview.querySelector('video');
-            previewVideo.pause();
-            previewVideo.currentTime = 0;
-        });
-
-        // При клике меняем основное видео
-        preview.addEventListener('click', async () => {
-            if (preview === currentVideo) return;
-
-            // Обновляем активное состояние
-            currentVideo.classList.remove('active');
-            preview.classList.add('active');
-            currentVideo = preview;
-
-            // Меняем видео
-            const newVideoSrc = preview.dataset.video;
-            await changeVideo(newVideoSrc);
-        });
+    document.querySelectorAll('.video-card').forEach(card => {
+        cardObserver.observe(card);
     });
-
-    // Добавляем плавные переходы для видео
-    mainVideo.style.transition = 'opacity 0.3s ease';
-});
-
-// Мобильное меню
-const menuToggle = document.querySelector('.menu-toggle');
-const navContent = document.querySelector('.nav-content');
-
-menuToggle?.addEventListener('click', () => {
-    navContent.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-});
-
-// Плавная прокрутка
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        navContent.classList.remove('active');
-        document.body.classList.remove('menu-open');
-        
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Анимация появления карточек при прокрутке
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.video-card').forEach(card => {
-    observer.observe(card);
 });
