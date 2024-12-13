@@ -5,6 +5,8 @@ class BackgroundVideoManager {
         this.totalVideos = 33;
         this.previewsToShow = 5;
         this.currentVideoIndex = 2;
+        this.isTransitioning = false;
+        this.currentRequest = null;
     }
 
     init() {
@@ -14,16 +16,8 @@ class BackgroundVideoManager {
     createPreviews() {
         this.videoSwitcher.innerHTML = '';
         for (let i = 0; i < this.previewsToShow; i++) {
-            // Вычисляем индекс с учетом сдвига на 2 позиции влево
             let videoIndex = this.currentVideoIndex - 2 + i;
-        
-            // Корректируем индекс, чтобы он оставался в пределах от 1 до totalVideos
-            if (videoIndex <= 0) {
-                videoIndex = this.totalVideos + videoIndex;
-            } else if (videoIndex > this.totalVideos) {
-                videoIndex = videoIndex - this.totalVideos;
-            }
-        
+            videoIndex = ((videoIndex - 1 + this.totalVideos) % this.totalVideos) + 1;
             const preview = this.createPreviewElement(videoIndex, i === 2);
             this.videoSwitcher.appendChild(preview);
         }
@@ -60,7 +54,7 @@ class BackgroundVideoManager {
         });
 
         preview.addEventListener('click', () => {
-            if (preview.classList.contains('active')) return;
+            if (preview.classList.contains('active') || this.isTransitioning) return;
             
             document.querySelector('.video-preview.active')?.classList.remove('active');
             preview.classList.add('active');
@@ -71,23 +65,74 @@ class BackgroundVideoManager {
     }
 
     async switchVideo(index) {
-        const newSrc = `/assets/videos/video-${index}.mp4`;
-        await this.preloadVideo(newSrc);
-        this.mainVideo.src = newSrc;
-        this.mainVideo.load();
-        this.mainVideo.play();
+        if (this.isTransitioning) return;
+        this.isTransitioning = true;
+
+        // Отменяем предыдущий запрос, если он есть
+        if (this.currentRequest) {
+            this.currentRequest.abort = true;
+        }
+
+        // Создаем новый запрос
+        const request = { abort: false };
+        this.currentRequest = request;
+
+        try {
+            const newSrc = `/assets/videos/video-${index}.mp4`;
+            await this.preloadVideo(newSrc, request);
+
+            // Проверяем, не был ли запрос отменен
+            if (request.abort) {
+                this.isTransitioning = false;
+                return;
+            }
+
+            this.mainVideo.src = newSrc;
+            this.mainVideo.load();
+            await new Promise((resolve) => {
+                const playPromise = this.mainVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(resolve)
+                        .catch(() => {
+                            this.mainVideo.currentTime = 0;
+                            resolve();
+                        });
+                } else {
+                    resolve();
+                }
+            });
+        } catch (error) {
+            console.error('Error switching video:', error);
+        } finally {
+            if (!request.abort) {
+                this.isTransitioning = false;
+                this.currentRequest = null;
+            }
+        }
     }
 
     updatePreviews() {
         this.createPreviews();
     }
 
-    preloadVideo(src) {
+    preloadVideo(src, request) {
         return new Promise((resolve, reject) => {
             const video = document.createElement('video');
+            
+            video.onloadeddata = () => {
+                if (!request.abort) {
+                    resolve(src);
+                }
+            };
+            
+            video.onerror = () => {
+                if (!request.abort) {
+                    reject(new Error(`Failed to load video: ${src}`));
+                }
+            };
+
             video.src = src;
-            video.onloadeddata = () => resolve(src);
-            video.onerror = reject;
         });
     }
 }
