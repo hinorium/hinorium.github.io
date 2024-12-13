@@ -1,23 +1,14 @@
-// Класс для управления фоновыми видео
 class BackgroundVideoManager {
     constructor() {
         this.mainVideo = document.getElementById('bgVideo');
         this.videoSwitcher = document.querySelector('.video-switcher');
-        this.videoOverlay = document.querySelector('.video-overlay');
         this.totalVideos = 33;
         this.previewsToShow = 5;
         this.currentVideoIndex = 2;
-        this.isTransitioning = false;
     }
 
     init() {
-        this.setupVideoTransitions();
         this.createPreviews();
-    }
-
-    setupVideoTransitions() {
-        this.mainVideo.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1s cubic-bezier(0.4, 0, 0.2, 1)';
-        this.videoOverlay.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1)';
     }
 
     createPreviews() {
@@ -52,79 +43,34 @@ class BackgroundVideoManager {
 
         preview.addEventListener('mouseenter', () => {
             previewVideo.play();
-            preview.classList.add('preview-hover');
         });
 
         preview.addEventListener('mouseleave', () => {
             previewVideo.pause();
             previewVideo.currentTime = 0;
-            preview.classList.remove('preview-hover');
         });
 
         preview.addEventListener('click', () => {
-            if (preview.classList.contains('active') || this.isTransitioning) return;
+            if (preview.classList.contains('active')) return;
             
-            preview.classList.add('preview-click');
-            setTimeout(() => preview.classList.remove('preview-click'), 300);
-
-            this.switchVideo(index, preview);
+            document.querySelector('.video-preview.active')?.classList.remove('active');
+            preview.classList.add('active');
+            this.currentVideoIndex = index;
+            this.switchVideo(index);
+            this.updatePreviews();
         });
     }
 
-    async switchVideo(index, clickedPreview) {
-        if (this.isTransitioning) return;
-        this.isTransitioning = true;
-
-        document.querySelector('.video-preview.active')?.classList.remove('active');
-        clickedPreview.classList.add('active');
-        this.currentVideoIndex = index;
-
-        try {
-            await this.transitionVideo(index);
-            this.updatePreviews();
-        } catch (error) {
-            console.error('Error switching video:', error);
-        } finally {
-            this.isTransitioning = false;
-        }
-    }
-
-    async transitionVideo(index) {
+    async switchVideo(index) {
         const newSrc = `/assets/videos/video-${index}.mp4`;
         await this.preloadVideo(newSrc);
-
-        this.mainVideo.style.transform = 'scale(1.1)';
-        this.mainVideo.style.filter = 'blur(10px)';
-        this.videoOverlay.style.opacity = '0.9';
-
-        await new Promise(resolve => setTimeout(resolve, 500));
-
         this.mainVideo.src = newSrc;
         this.mainVideo.load();
-        await new Promise(resolve => {
-            this.mainVideo.onplay = resolve;
-            this.mainVideo.play();
-        });
-
-        await new Promise(resolve => setTimeout(resolve, 100));
-        this.mainVideo.style.transform = 'scale(1)';
-        this.mainVideo.style.filter = 'blur(0px)';
-        this.videoOverlay.style.opacity = '0.7';
+        this.mainVideo.play();
     }
 
     updatePreviews() {
-        const previews = Array.from(this.videoSwitcher.children);
-        this.videoSwitcher.classList.add('switcher-transition');
-        
-        previews.forEach(preview => {
-            preview.style.transform = 'scale(0.95)';
-            preview.style.opacity = '0';
-        });
-
-        setTimeout(() => {
-            this.createPreviews();
-            this.videoSwitcher.classList.remove('switcher-transition');
-        }, 300);
+        this.createPreviews();
     }
 
     preloadVideo(src) {
@@ -181,9 +127,7 @@ async function loadNewVideos() {
     }
 }
 
-// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    // Инициализация менеджера видео
     const videoManager = new BackgroundVideoManager();
     videoManager.init();
 
