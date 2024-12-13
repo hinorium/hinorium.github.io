@@ -14,8 +14,17 @@ class BackgroundVideoManager {
     createPreviews() {
         this.videoSwitcher.innerHTML = '';
         for (let i = 0; i < this.previewsToShow; i++) {
-            const videoIndex = ((this.currentVideoIndex - 2 + i) % this.totalVideos) + 1;
-            const preview = this.createPreviewElement(videoIndex, i === 1);
+            // Вычисляем индекс с учетом сдвига на 2 позиции влево
+            let videoIndex = this.currentVideoIndex - 2 + i;
+        
+            // Корректируем индекс, чтобы он оставался в пределах от 1 до totalVideos
+            if (videoIndex <= 0) {
+                videoIndex = this.totalVideos + videoIndex;
+            } else if (videoIndex > this.totalVideos) {
+                videoIndex = videoIndex - this.totalVideos;
+            }
+        
+            const preview = this.createPreviewElement(videoIndex, i === 2);
             this.videoSwitcher.appendChild(preview);
         }
     }
