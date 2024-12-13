@@ -344,7 +344,7 @@ nav {
 /* Добавляем стили для переключателя видео */
 .video-switcher {
     position: absolute;
-    right: 4rem;
+    right: 2rem;
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
