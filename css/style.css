@@ -31,64 +31,10 @@
     --bg-tertiary-rgb: 28, 30, 36;
 }
 
-/* scrollbar  */
-/* Убираем скроллбар и растягиваем на весь экран */
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-}
-
-/* Если нужен скролл внутри контента */
-.main-content {
-    height: 100%;
-    overflow-y: auto;
-    -ms-overflow-style: none;  /* IE и Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-/* Скрываем скроллбар для Chrome, Safari и Opera */
-.main-content::-webkit-scrollbar {
-    display: none;
-}
-
-/* Убираем основной скроллбар */
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-}
-
-/* Стилизация скроллбара только для контента */
-.main-content {
-    height: 100%;
-    overflow-y: auto;
-}
-
-.main-content::-webkit-scrollbar {
-    width: 8px;
-}
-
-.main-content::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-}
-
-.main-content::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-}
-
-.main-content::-webkit-scrollbar-thumb:hover {
-    background: var(--text-tertiary);
-}
-
+/* scrollbar */
 /* Стилизация скроллбара */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
