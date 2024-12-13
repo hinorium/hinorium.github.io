@@ -9,7 +9,6 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100vh;
-    min-height: 100vh;
     overflow-x: hidden;
 }
 
@@ -17,28 +16,101 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Для мобильных браузеров */
-    min-height: -webkit-fill-available;
-    /* Предотвращает появление пробелов на iOS */
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
 }
 
-/* Если у вас есть основной контейнер контента */
 .main-content {
     flex: 1;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     overflow-y: auto;
     position: relative;
 }
 
+/* Стилизация скроллбара */
+.main-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+    background: var(--text-tertiary);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    position: relative;
+}
+
+/* Стили для секции hero */
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#bgVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Стили для остальных секций */
+.video-section {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+footer {
+    width: 100%;
+    position: relative;
+}
+
+/* Для плавного скролла */
+html {
+    scroll-behavior: smooth;
+}
+
 /* Для поддержки iOS Safari */
 @supports (-webkit-touch-callout: none) {
-    body {
+    .hero {
+        height: -webkit-fill-available;
+    }
+    
+    .main-content {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media screen and (max-width: 768px) {
+    .hero {
+        height: 100vh;
         height: -webkit-fill-available;
     }
 }
