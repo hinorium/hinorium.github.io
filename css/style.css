@@ -227,6 +227,29 @@ nav {
     object-fit: cover;
 }
 
+/* mss */
+.video-background video {
+    transition: opacity 0.3s ease;
+}
+
+/* Анимация смены превью */
+@keyframes previewSlide {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.video-preview.new {
+    animation: previewSlide 0.3s ease forwards;
+}
+
+/* end */
+
 .preview-overlay {
     position: absolute;
     top: 0;
