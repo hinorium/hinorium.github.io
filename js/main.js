@@ -100,21 +100,29 @@ function initBackgroundVideoSystem() {
         const newSrc = `/assets/videos/video-${index}.mp4`;
         try {
             await preloadVideo(newSrc);
-            
-            // Добавляем эффекты перехода
-            mainVideo.classList.add('video-fade');
-            videoOverlay.classList.add('overlay-fade');
-            
+        
+            // Начинаем анимацию: приближение и размытие
+            mainVideo.style.transform = 'scale(1.1)';
+            mainVideo.style.filter = 'blur(10px)';
+            videoOverlay.style.opacity = '0.9';
+        
+            // Ждем завершения анимации размытия
             setTimeout(() => {
+                // Меняем источник видео
                 mainVideo.src = newSrc;
                 mainVideo.load();
                 mainVideo.play();
-                
-                setTimeout(() => {
-                    mainVideo.classList.remove('video-fade');
-                    videoOverlay.classList.remove('overlay-fade');
-                }, 50);
-            }, 300);
+            
+                // После загрузки нового видео
+                mainVideo.onplay = () => {
+                    // Плавно убираем размытие и возвращаем масштаб
+                    setTimeout(() => {
+                        mainVideo.style.filter = 'blur(0px)';
+                        mainVideo.style.transform = 'scale(1)';
+                        videoOverlay.style.opacity = '0.7';
+                    }, 100);
+                };
+            }, 500);
         } catch (error) {
             console.error('Error loading video:', error);
         }
