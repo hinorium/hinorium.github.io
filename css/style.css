@@ -53,6 +53,7 @@
 
 /* Базовые стили */
 body {
+    margin: 0;
     font-family: 'Inter', sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
