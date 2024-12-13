@@ -250,6 +250,89 @@ nav {
 
 /* end */
 
+
+/* new styles xv2 */
+
+/* Анимации для фонового видео */
+.video-transition {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-fade {
+    transform: scale(1.05);
+    filter: blur(10px);
+}
+
+/* Анимации для оверлея */
+.overlay-transition {
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.overlay-fade {
+    opacity: 0.9;
+    background: linear-gradient(
+        135deg,
+        rgba(10, 10, 12, 0.95) 0%,
+        rgba(19, 21, 26, 0.98) 100%
+    );
+}
+
+/* Анимации для превью */
+.video-preview {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preview-hover {
+    transform: translateX(-10px) scale(1.05);
+    box-shadow: 0 0 30px rgba(79, 70, 229, 0.3);
+    border-color: var(--accent-primary);
+}
+
+.preview-click {
+    transform: scale(0.95);
+}
+
+.switcher-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Улучшенный эффект активного превью */
+.video-preview.active {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 30px rgba(79, 70, 229, 0.3);
+    transform: translateX(-10px);
+}
+
+.video-preview.active .preview-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(79, 70, 229, 0.4) 0%,
+        rgba(79, 70, 229, 0.2) 100%
+    );
+}
+
+/* Улучшенный эффект при наведении на превью */
+.video-preview:hover .preview-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(79, 70, 229, 0.3) 0%,
+        rgba(79, 70, 229, 0.1) 100%
+    );
+}
+
+.preview-number {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.video-preview:hover .preview-number {
+    transform: scale(1.1);
+}
+
+/* End */
+
+
 .preview-overlay {
     position: absolute;
     top: 0;
